@@ -21,7 +21,7 @@ public class ServerListener implements Runnable {
         try {
             Scanner in = new Scanner(s.getInputStream());
             w.addTextToJta("Подключились к серверу.");
-            while (!Thread.interrupted()) {
+            while (!Thread.currentThread().isInterrupted()) {
                 w.addTextToJta(in.nextLine());
             }
 
