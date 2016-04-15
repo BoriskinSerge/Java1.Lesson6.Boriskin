@@ -9,7 +9,7 @@ public class ServerListener implements Runnable {
 
     private MyWindow w;
     private Socket s;
-
+    private Scanner in;
 
     public ServerListener(MyWindow w, Socket s) {
         this.w = w;
@@ -19,13 +19,18 @@ public class ServerListener implements Runnable {
     @Override
     public void run() {
         try {
-            Scanner in = new Scanner(s.getInputStream());
+            in = new Scanner(s.getInputStream());
             w.addTextToJta("Подключились к серверу.");
             while (!Thread.currentThread().isInterrupted()) {
                 w.addTextToJta(in.nextLine());
+                Thread.sleep(10);
+
             }
+            in.close();
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
